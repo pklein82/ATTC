@@ -121,7 +121,7 @@ function home() {
   <div class="container">
     ${sectionHead({ eyebrow: 'Themenfelder', title: 'Woran wir gemeinsam arbeiten', text: 'Sechs Schwerpunkte prägen das Arbeitsprogramm – getragen von der Expertise unserer Mitglieder.' })}
     <ul class="theme-grid">
-      ${themes.map((t, i) => `<li class="theme-card" data-reveal style="--d:${i * 60}ms"><span class="theme-card__icon">${icon(t.icon)}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
+      ${themes.map((t, i) => `<li class="theme-card" data-reveal style="--d:${i * 40}ms"><span class="theme-card__icon">${icon(t.icon)}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
     </ul>
   </div>
 </section>
@@ -276,7 +276,7 @@ ${pageHero({ eyebrow: 'Der Cluster', title: 'Gemeinsam schneller<br>von der Idee
   <div class="container">
     ${sectionHead({ eyebrow: 'Themenfelder', title: 'Unsere Schwerpunkte' })}
     <ul class="theme-grid">
-      ${themes.map((t, i) => `<li class="theme-card" data-reveal style="--d:${i * 60}ms"><span class="theme-card__icon">${icon(t.icon)}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
+      ${themes.map((t, i) => `<li class="theme-card" data-reveal style="--d:${i * 40}ms"><span class="theme-card__icon">${icon(t.icon)}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
     </ul>
   </div>
 </section>
@@ -397,7 +397,7 @@ ${pageHero({ eyebrow: 'Mitglied werden', title: 'Teil des Netzwerks werden, das 
   <div class="container">
     ${sectionHead({ eyebrow: 'Ihr Mehrwert', title: 'Was eine Mitgliedschaft bringt' })}
     <ul class="benefit-grid">
-      ${benefits.map(([ic, t, x], i) => `<li class="benefit" data-reveal style="--d:${i * 60}ms"><span class="benefit__icon">${icon(ic)}</span><h3>${t}</h3><p>${x}</p></li>`).join('')}
+      ${benefits.map(([ic, t, x], i) => `<li class="benefit" data-reveal style="--d:${i * 40}ms"><span class="benefit__icon">${icon(ic)}</span><h3>${t}</h3><p>${x}</p></li>`).join('')}
     </ul>
   </div>
 </section>

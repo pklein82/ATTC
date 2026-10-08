@@ -15,12 +15,25 @@
   // Mobile Navigation
   const toggle = document.querySelector('[data-nav-toggle]');
   const mobileNav = document.querySelector('[data-mobile-nav]');
+  mobileNav.querySelectorAll('li, .mobile-nav__cta').forEach((el, i) => el.style.setProperty('--i', i));
+  let closeTimer;
   const setNav = (open) => {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.querySelector('.sr-only').textContent = open ? 'Menü schließen' : 'Menü öffnen';
-    mobileNav.hidden = !open;
-    header.classList.toggle('is-open', open);
+    clearTimeout(closeTimer);
     document.body.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      mobileNav.classList.remove('is-closing');
+      mobileNav.hidden = false;
+      header.classList.add('is-open');
+      return;
+    }
+    if (mobileNav.hidden) return;
+    // Schließen kürzer als Öffnen; ohne Animation sofort
+    const finish = () => { mobileNav.hidden = true; mobileNav.classList.remove('is-closing'); header.classList.remove('is-open'); };
+    if (reduceMotion) return finish();
+    mobileNav.classList.add('is-closing');
+    closeTimer = setTimeout(finish, 160);
   };
   toggle.addEventListener('click', () => setNav(toggle.getAttribute('aria-expanded') !== 'true'));
   mobileNav.addEventListener('click', (e) => { if (e.target.closest('a')) setNav(false); });
@@ -49,7 +62,7 @@
         const el = en.target;
         const target = Number(el.dataset.count);
         const start = performance.now();
-        const dur = 1400;
+        const dur = 900;
         const tick = (now) => {
           const p = Math.min(1, (now - start) / dur);
           el.firstChild.nodeValue = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
