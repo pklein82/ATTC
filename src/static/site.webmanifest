@@ -1,0 +1,8 @@
+{
+  "name": "ATTC – Austrian Traffic Telematics Cluster",
+  "short_name": "ATTC",
+  "icons": [{ "src": "assets/img/favicon-512.png", "sizes": "512x512", "type": "image/png" }],
+  "theme_color": "#0c1a26",
+  "background_color": "#ffffff",
+  "display": "browser"
+}
