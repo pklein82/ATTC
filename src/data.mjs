@@ -309,6 +309,49 @@ export const publications = [
 // News. `body` ist HTML (vertrauenswürdiger, redaktioneller Inhalt).
 export const news = [
   {
+    slug: 'kontron-transportation-kritische-kommunikation',
+    oldSlug: 'veranstaltungen/kamingesprache/attc-informationsabend-kontron',
+    kamin: '2025-06-10',
+    date: '2025-06-10',
+    category: 'Kamingespräch',
+    title: 'Zu Gast bei Kontron Transportation: Kommunikation, auf die sich Millionen verlassen',
+    teaser: 'FRMCS als Nachfolger von GSM-R, E-Ticketing und intelligente Maut: Das Kamingespräch im Juni gab Einblick in Systeme, ohne die Bahn und Öffis nicht fahren.',
+    img: 'news/kontron',
+    body: `
+<p>Wenn Züge sicher fahren, Fahrgäste ihr Ticket entwerten und Mautsysteme den Verkehr lenken, läuft im Hintergrund betriebskritische Kommunikation – Tag für Tag, für Millionen Menschen. Wie diese Systeme heute funktionieren und wohin sie sich entwickeln, zeigte Kontron Transportation den Mitgliedern des ATTC bei einem Kamingespräch im Juni an seinem Wiener Standort.</p>
+<p>Durch den Abend führten Managing Director Richard Neussl sowie die Fachexperten Reinhard Steiner-Krause und Karel Feix.</p>
+<h2>FRMCS: Der nächste Standard für die Bahn</h2>
+<p>Im Mittelpunkt stand das <strong>Future Railway Mobile Communication System (FRMCS)</strong> – der kommende internationale Standard für mobile Bahnkommunikation, der GSM-R ablösen wird. Für Infrastrukturbetreiber ist der Umstieg eines der großen Digitalisierungsprojekte der nächsten Jahre. Anschaulich wurde das durch „FRED“, den virtuellen Avatar von Kontron Transportation, der auf unterhaltsame Weise durch die FRMCS-Welt führt.</p>
+<h2>Von der Schiene bis zur Mautstation</h2>
+<p>Neben der Bahn ging es um Lösungen für den öffentlichen Verkehr – etwa <strong>elektronisches Ticketing und Entwertungssysteme</strong>, die Mobilität für Fahrgäste einfacher machen. Auch intelligente Ansätze in der <strong>Mauttechnologie</strong> wurden vorgestellt, die Verkehr gezielter steuern und Infrastruktur nachhaltiger nutzen können.</p>
+<p>Wie bei jedem Kamingespräch blieb ausreichend Zeit für den persönlichen Austausch unter Fachkolleg:innen. Der ATTC dankt Kontron Transportation herzlich für die Gastfreundschaft und den offenen Dialog.</p>
+<p><a class="link-arrow" href="/veranstaltungen/#kamingespraeche">Alle Kamingespräche im Archiv</a></p>`,
+  },
+  {
+    slug: 'rastplatz-der-zukunft-roggendorf',
+    oldSlug: 'veranstaltungen/kamingesprache/attc-vor-ort-der-rastplatz-der-zukunft-in-roggendorf',
+    kamin: '2025-04-23',
+    date: '2025-04-23',
+    category: 'Kamingespräch',
+    title: 'Vor Ort in Roggendorf: So sieht der Rastplatz der Zukunft aus',
+    teaser: 'Über 30 Expert:innen besuchten mit der ASFINAG den neuen Rastplatz an der A1 – mit Ladepunkten für Pkw und Lkw, Stellplatz-Detektion in Echtzeit und eigener Solarstromversorgung.',
+    img: 'news/rastplatz',
+    gallery: ['news/rastplatz-praesentation', 'news/rastplatz-laden', 'news/rastplatz-aussen'],
+    body: `
+<p>Wie sieht der Rastplatz der Zukunft aus? Dieser Frage gingen am 23. April 2025 über 30 Expertinnen und Experten des ATTC gemeinsam mit der ASFINAG nach. Ziel war der 2024 eröffnete <strong>Rastplatz Roggendorf an der A1 Westautobahn</strong> – ein Beispiel dafür, wie Rastinfrastruktur innovativ, nachhaltig und nutzerfreundlich zugleich sein kann.</p>
+<p>ASFINAG-Vorstand Hartwig Hufnagl, damals ATTC-Präsident, begrüßte die Gäste und betonte die strategische Bedeutung moderner Rastanlagen für Verkehrssicherheit, Energieversorgung und nachhaltige Mobilität. Danach folgte eine Präsentation der technischen Highlights und Planungsgrundlagen – und ein Rundgang über das Gelände.</p>
+<h2>Was den Rastplatz besonders macht</h2>
+<ul>
+<li><strong>Telematik schon bei der Zufahrt:</strong> Ein intelligentes Stellplatz-Detektionssystem meldet die Belegung der Parkflächen in Echtzeit – bereits bei der Zu- und Einfahrt.</li>
+<li><strong>Laden für Pkw und Lkw:</strong> Zahlreiche Ladepunkte fördern die Elektromobilität auch im Schwerverkehr.</li>
+<li><strong>Weitgehend energieautark:</strong> Über 260 Photovoltaik-Paneele versorgen Beleuchtung, Betriebsanlagen und Ladeinfrastruktur; ein Speicher sichert die Versorgung bei Nacht und Schlechtwetter.</li>
+<li><strong>Schwammstadt-Prinzip:</strong> Regen- und Oberflächenwasser wird gespeichert und vor Ort versickert. Das entlastet die Kanalisation und unterstützt die Grundwasserneubildung. Nachhaltige Baustoffe und der Erhalt bestehender Bäume waren Teil der Planung.</li>
+<li><strong>Sicherheit und Komfort:</strong> Ein durchdachtes Beleuchtungskonzept und flächendeckende Notrufeinrichtungen sorgen für Sicherheit in der Nacht; barrierefreie Zugänge, Spielplatz, Outdoor-Fitnessgeräte und eine Hundeauslaufzone für Aufenthaltsqualität.</li>
+</ul>
+<p>Für die ATTC-Mitglieder war der Besuch mehr als eine Exkursion: Er zeigte, wie Planung und Technologie zusammenwirken, wenn Verkehrsinfrastruktur spürbar besser werden soll. Herzlichen Dank an die ASFINAG für die Einladung und die Führung.</p>
+<p><a class="link-arrow" href="/veranstaltungen/#kamingespraeche">Alle Kamingespräche im Archiv</a></p>`,
+  },
+  {
     slug: '2-attc-fachmesse-ki-in-der-mobilitaet',
     oldSlug: '2-attc-fachmesse-zur-kuenstlichen-intelligenz-in-der-mobilitaet',
     date: '2024-11-28',

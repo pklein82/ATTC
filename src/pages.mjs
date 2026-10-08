@@ -468,7 +468,9 @@ ${pageHero({ eyebrow: 'Veranstaltungen', title: 'Wissen teilen.<br>Netzwerk erle
       <ol class="archive__list" data-archive-list>
         ${kamingespraeche.map((k) => {
           const d = fmtDateShort(k.date);
-          return `<li class="archive-item" data-year="${d.year}" data-text="${esc(`${k.title} ${k.host}`.toLowerCase())}"><time class="archive-item__date" datetime="${k.date}"><span>${d.day}. ${d.month}</span>${d.year}</time><div><h3>${esc(k.title)}</h3><p>${esc(k.host)}</p></div></li>`;
+          const report = news.find((n) => n.kamin === k.date);
+          const title = report ? `<a href="/aktuelles/${report.slug}/">${esc(k.title)}</a>` : esc(k.title);
+          return `<li class="archive-item${report ? ' archive-item--report' : ''}" data-year="${d.year}" data-text="${esc(`${k.title} ${k.host}`.toLowerCase())}"><time class="archive-item__date" datetime="${k.date}"><span>${d.day}. ${d.month}</span>${d.year}</time><div><h3>${title}</h3><p>${esc(k.host)}${report ? ' · Bericht lesen' : ''}</p></div></li>`;
         }).join('')}
       </ol>
       <p class="archive__empty" hidden data-archive-empty>Keine Termine gefunden. Versuchen Sie einen anderen Suchbegriff.</p>

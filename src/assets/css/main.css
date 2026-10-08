@@ -575,12 +575,16 @@ address { font-style: normal; }
 
 .chip[aria-pressed='true'] { background: var(--ink); color: #fff; border-color: var(--ink); }
 .archive__list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem 1.25rem; }
-.archive-item { display: grid; grid-template-columns: 92px 1fr; gap: 1.25rem; align-items: center; background: #fff; border-radius: var(--r); padding: 1.1rem 1.25rem; animation: fadeIn var(--dur) var(--ease); }
+.archive-item { transition: transform var(--dur-press) var(--ease); display: grid; grid-template-columns: 92px 1fr; gap: 1.25rem; align-items: center; background: #fff; border-radius: var(--r); padding: 1.1rem 1.25rem; animation: fadeIn var(--dur) var(--ease); }
 .archive-item[hidden] { display: none; }
 .archive-item__date { display: flex; flex-direction: column; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; border-right: 1px solid var(--line); }
 .archive-item__date span { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--ink); }
 .archive-item h3 { font-size: 1rem; font-family: var(--font-body); font-weight: 600; color: var(--ink); line-height: 1.35; }
 .archive-item p { font-size: .87rem; color: var(--brand-600); margin-top: .15rem; }
+.archive-item--report { position: relative; box-shadow: inset 3px 0 0 var(--signal); }
+.archive-item--report h3 a { text-decoration: none; }
+.archive-item--report h3 a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.archive-item--report:active { transform: scale(0.99); }
 .archive__empty { padding: 2rem; text-align: center; color: var(--muted); }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } }
 @media (max-width: 800px) { .archive__list { grid-template-columns: 1fr; } }
@@ -674,6 +678,7 @@ address { font-style: normal; }
   .logo-card:hover { box-shadow: var(--shadow); border-color: transparent; }
   .tm-item:hover > * { transform: translateX(4px); }
   .chip:hover { border-color: var(--ink); }
+  .archive-item--report:hover h3 a { color: var(--brand-600); }
   .pub-card__cover:hover img { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 }
 
