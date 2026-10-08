@@ -16,31 +16,26 @@
   const toggle = document.querySelector('[data-nav-toggle]');
   const mobileNav = document.querySelector('[data-mobile-nav]');
   mobileNav.querySelectorAll('li, .mobile-nav__cta').forEach((el, i) => el.style.setProperty('--i', i));
-  let closeTimer;
-  const setNav = (open) => {
+  mobileNav.hidden = false; // Sichtbarkeit steuert ab jetzt CSS (is-open), damit Öffnen/Schließen unterbrechbar bleibt
+  let headerTimer;
+  const setNav = (open, { instant = false } = {}) => {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.querySelector('.sr-only').textContent = open ? 'Menü schließen' : 'Menü öffnen';
-    clearTimeout(closeTimer);
     document.body.style.overflow = open ? 'hidden' : '';
-    if (open) {
-      mobileNav.classList.remove('is-closing');
-      mobileNav.hidden = false;
-      header.classList.add('is-open');
-      return;
-    }
-    if (mobileNav.hidden) return;
-    // Schließen kürzer als Öffnen; ohne Animation sofort
-    const finish = () => { mobileNav.hidden = true; mobileNav.classList.remove('is-closing'); header.classList.remove('is-open'); };
-    if (reduceMotion) return finish();
-    mobileNav.classList.add('is-closing');
-    closeTimer = setTimeout(finish, 160);
+    mobileNav.classList.toggle('is-instant', instant);
+    mobileNav.classList.toggle('is-open', open);
+    clearTimeout(headerTimer);
+    if (open) header.classList.add('is-open');
+    // Header erst nach dem Ausblenden wieder transparent
+    else headerTimer = setTimeout(() => header.classList.remove('is-open'), instant ? 0 : 160);
+    if (instant) requestAnimationFrame(() => requestAnimationFrame(() => mobileNav.classList.remove('is-instant')));
   };
   toggle.addEventListener('click', () => setNav(toggle.getAttribute('aria-expanded') !== 'true'));
   mobileNav.addEventListener('click', (e) => { if (e.target.closest('a')) setNav(false); });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setNav(false); toggle.focus(); }
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setNav(false, { instant: true }); toggle.focus(); }
   });
-  window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && setNav(false));
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && setNav(false, { instant: true }));
 
   // Reveal beim Scrollen
   const revealEls = document.querySelectorAll('[data-reveal]');
@@ -120,11 +115,12 @@
       status.textContent = `${n} ${n === 1 ? 'Termin' : 'Termine'} gefunden`;
     };
     chips.forEach((c) => c.addEventListener('click', () => {
+      delete archive.dataset.instant;
       year = c.dataset.year;
       chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
       apply();
     }));
-    search.addEventListener('input', apply);
+    search.addEventListener('input', () => { archive.dataset.instant = ''; apply(); });
   }
 
   // Kontaktformular → vorbereitete E-Mail (keine Datenübertragung an den Server)
