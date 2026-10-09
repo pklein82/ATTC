@@ -6,12 +6,12 @@
 export const talkMobility = [
   {
     no: 18,
+    images: 9,
+    cover: 9,
     oldSlug: 'attc-talkmobility-18',
     title: 'Moderne Technologien – Fluch oder Segen für resiliente Verkehrsinfrastrukturen?',
     when: 'Mai 2025',
     keynote: 'Gerald Führer',
-    images: 1,
-    cover: 1,
     lead: 'Digitalisierung, KI und Krisenfestigkeit: Der 18. talkMobility fragte, wann Technologie Verkehrsinfrastruktur widerstandsfähiger macht – und wann sie neue Risiken schafft.',
     body: `
 <p>Mit dem 18. talkMobility war der ATTC Ende Mai erneut Gastgeber eines Abends voller Impulse, Diskussionen und persönlichem Austausch. Zahlreiche Gäste aus Wirtschaft, Forschung und öffentlicher Hand diskutierten über Chancen und Herausforderungen im Spannungsfeld von Digitalisierung, künstlicher Intelligenz und Krisenfestigkeit.</p>
@@ -40,12 +40,12 @@ export const talkMobility = [
   },
   {
     no: 17,
+    images: 9,
+    cover: 4,
     oldSlug: 'attc-talkmobility-17',
     title: 'Künstliche Intelligenz in der Mobilität',
     when: '22. Mai 2024',
     keynote: 'Harald Leitenmüller, CTO Microsoft Österreich',
-    images: 1,
-    cover: 1,
     lead: 'Führende Köpfe aus Industrie, Forschung und Infrastrukturbetrieb diskutierten Potenziale und Grenzen der KI-Transformation im Mobilitätssektor.',
     related: '/aktuelles/2-attc-fachmesse-ki-in-der-mobilitaet/',
     body: `
@@ -128,6 +128,8 @@ export const talkMobility = [
   },
   {
     no: 13,
+    images: 8,
+    cover: 1,
     oldSlug: 'attc-talkmobility-13',
     title: 'Die Revolution der Mobilität – Der Mensch als Passagier der technologischen Entwicklung',
     when: '15. Mai 2019',
@@ -140,6 +142,8 @@ export const talkMobility = [
   },
   {
     no: 12,
+    images: 9,
+    cover: 6,
     oldSlug: 'talkmobility-12',
     title: 'Verkehrspolitische Weichenstellungen für die Mobilitätslösungen von morgen',
     when: '16. Mai 2018',
@@ -151,6 +155,8 @@ export const talkMobility = [
   },
   {
     no: 11,
+    images: 1,
+    cover: 1,
     oldSlug: 'talkmobility-11',
     title: 'Wie wir uns auch in Zukunft aufeinander zubewegen',
     when: '10. Mai 2017',
@@ -162,6 +168,8 @@ export const talkMobility = [
   },
   {
     no: 10,
+    images: 9,
+    cover: 6,
     oldSlug: 'talkmobility-10',
     title: 'Der Weg in die automatisierte Sackgasse?',
     when: null,
@@ -185,13 +193,13 @@ export const talkMobility = [
   },
   {
     no: 8,
+    images: 9,
+    cover: 6,
     oldSlug: 'talkmobility-8',
     title: 'Wien – Freiburg: Smart Cities im Mobilitätscheck',
     when: '14. Mai 2014',
     venue: 'Orangerie Schloss Schönbrunn, Wien',
     keynote: 'DI Thomas Madreiter (Planungsdirektor Stadt Wien) und Frank Uekermann (Stadt Freiburg)',
-    images: 5,
-    cover: 4,
     lead: 'Zwei Städte, zwei Wege: Verkehrstelematische Herausforderungen in Ballungsräumen im direkten Vergleich.',
     body: `
 <p>Zum 8. talkMobility lud der ATTC in die Orangerie im Schloss Schönbrunn. Generalsekretär Mag. Hartwig Hufnagl moderierte den Abend.</p>
@@ -199,6 +207,8 @@ export const talkMobility = [
   },
   {
     no: 7,
+    images: 9,
+    cover: 8,
     oldSlug: 'talkmobility-7',
     title: 'car2car-Communication – der automobile Datenaustausch',
     when: '30. März 2011',
@@ -295,6 +305,8 @@ export const talkMobility = [
   },
   {
     no: 1,
+    images: 1,
+    cover: 1,
     oldSlug: 'talkmobility-1',
     title: '„Und es bewegt sich doch“ – Galileo, Realisierung einer europäischen Vision',
     when: '27. Juni 2007',
