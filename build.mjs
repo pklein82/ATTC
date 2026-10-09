@@ -3,7 +3,8 @@ import { mkdir, rm, writeFile, cp, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { allPages } from './src/pages.mjs';
-import { site, news } from './src/data.mjs';
+import { readdir, stat } from 'node:fs/promises';
+import { site, news, talkMobility } from './src/data.mjs';
 
 const OUT = 'dist';
 // Optionaler Unterpfad, z. B. BASE_PATH=/attc für GitHub Pages (https://<user>.github.io/attc/)
@@ -27,7 +28,10 @@ const hash = createHash('sha256')
   .digest('hex')
   .slice(0, 10);
 
-const pages = allPages();
+// Dateigrößen der talkMobility-PDFs für die Download-Angaben
+const docSizes = {};
+for (const f of await readdir('src/assets/docs/talkmobility')) docSizes[f] = (await stat(join('src/assets/docs/talkmobility', f))).size;
+const pages = allPages(docSizes);
 for (const [path, html] of pages) {
   const file = path.endsWith('.html') ? join(OUT, path) : join(OUT, path, 'index.html');
   await mkdir(dirname(file), { recursive: true });
@@ -59,6 +63,7 @@ const redirects = [
   ['/trendmobility/', '/publikationen/'],
   ['/positionspapier-ki-in-der-mobilitaet-2024/', '/assets/docs/positionspapier-ki-2024.pdf'],
   ...news.map((n) => [`/${n.oldSlug}/`, `/aktuelles/${n.slug}/`]),
+  ...talkMobility.map((t) => [`/veranstaltungen/talk-mobility/${t.oldSlug}/`, `/veranstaltungen/talkmobility/${t.no}/`]),
 ];
 // Netlify / Cloudflare Pages
 await writeFile(join(OUT, '_redirects'), redirects.map(([from, to]) => `${from} ${to} 301`).join('\n') + '\n');

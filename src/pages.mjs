@@ -130,13 +130,13 @@ function home() {
   <div class="container">
     ${sectionHead({ eyebrow: 'Formate', title: 'Begegnung mit Substanz', text: 'Vom exklusiven Abend im kleinen Kreis bis zur Fachmesse mit über 130 Gästen.' })}
     <div class="formats">
-      <a class="format format--feature" href="/veranstaltungen/#talkmobility" data-reveal>
+      <a class="format format--feature" href="${tmUrl(talkMobility[0])}" data-reveal>
         <div class="format__media">${picture('news/tm17', '', { sizes: '(min-width: 1000px) 60vw, 100vw' })}</div>
         <div class="format__body">
           <span class="format__tag">${icon('mic')} Vortragsreihe</span>
           <h3>talkMobility</h3>
           <p>Renommierte nationale und internationale Expert:innen zu den großen Mobilitätsfragen – zuletzt Ausgabe ${talkMobility[0].no}: „${esc(talkMobility[0].title)}“</p>
-          <span class="link-arrow">Alle Ausgaben ${icon('arrow')}</span>
+          <span class="link-arrow">Zum Bericht ${icon('arrow')}</span>
         </div>
       </a>
       <a class="format" href="/veranstaltungen/#kamingespraeche" data-reveal>
@@ -445,7 +445,7 @@ ${pageHero({ eyebrow: 'Veranstaltungen', title: 'Wissen teilen.<br>Netzwerk erle
       <figure class="framed framed--sm" data-reveal>${picture('news/tm17', 'talkMobility 17: Künstliche Intelligenz in der Mobilität', { sizes: '(min-width: 1000px) 40vw, 100vw', w: 1600, h: 900 })}</figure>
     </div>
     <ol class="tm-list">
-      ${talkMobility.map((t) => `<li class="tm-item" data-reveal><span class="tm-item__no">tM ${t.no}</span><div><h3>${esc(t.title)}</h3>${t.date ? `<p><time datetime="${t.date}">${fmtDate(t.date)}</time></p>` : ''}</div></li>`).join('')}
+      ${talkMobility.map((t) => `<li class="tm-item" data-reveal><a class="tm-item__link" href="${tmUrl(t)}"><span class="tm-item__no">tM ${t.no}</span><div><h3>${esc(t.title)}</h3><p>${[t.when, t.keynote && t.keynote.split(',')[0].replace(/\s*\([^)]*\)/g, '')].filter(Boolean).map(esc).join(' · ')}</p></div>${t.images >= 3 ? `<span class="tm-item__badge" title="Mit Fotogalerie">${icon('camera')}</span>` : ''}<span class="tm-item__arrow">${icon('arrow')}</span></a></li>`).join('')}
     </ol>
   </div>
 </section>
@@ -490,6 +490,75 @@ ${pageHero({ eyebrow: 'Veranstaltungen', title: 'Wissen teilen.<br>Netzwerk erle
 
 ${ctaBand({ title: 'Gastgeber eines Kamingesprächs werden?', text: 'Mitglieder präsentieren ihre Projekte und Standorte dem Netzwerk. Sprechen Sie uns an.', primary: { href: '/kontakt/', label: 'Kontakt aufnehmen' }, secondary: { href: '/mitglied-werden/', label: 'Mitglied werden' } })}`;
   return layout({ path: '/veranstaltungen/', title: 'Veranstaltungen', description: 'talkMobility, Kamingespräche, Fachmesse und Klausur: die Veranstaltungsformate des Austrian Traffic Telematics Cluster mit vollständigem Archiv.', body });
+}
+
+
+// ---------- talkMobility-Detailseiten ----------
+const tmUrl = (t) => `/veranstaltungen/talkmobility/${t.no}/`;
+const tmImg = (t, k) => `tm/tm${t.no}-${k}`;
+const fmtSize = (bytes) => (bytes / 1048576 >= 1 ? `${(bytes / 1048576).toFixed(1).replace('.', ',')} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`);
+
+function tmDetail(t, docSizes) {
+  const i = talkMobility.indexOf(t);
+  const newer = talkMobility[i - 1];
+  const older = talkMobility[i + 1];
+  const facts = [
+    t.when && ['Datum', esc(t.when)],
+    t.venue && ['Ort', esc(t.venue)],
+    t.keynote && ['Keynote', esc(t.keynote)],
+  ].filter(Boolean);
+  // Galerie erst ab drei Fotos – sonst wiederholt sie nur das Titelbild
+  const gallery = t.images >= 3 ? Array.from({ length: t.images }, (_, k) => k + 1) : [];
+  const body = `
+${t.cover
+    ? pageHero({ eyebrow: `talkMobility · Ausgabe ${t.no}`, title: esc(t.title), lead: esc(t.lead), img: tmImg(t, t.cover), crumbs: [{ href: '/veranstaltungen/', label: 'Veranstaltungen' }, { href: '/veranstaltungen/#talkmobility', label: 'talkMobility' }, { label: `Ausgabe ${t.no}` }] })
+    : pageHero({ eyebrow: `talkMobility · Ausgabe ${t.no}`, title: esc(t.title), lead: esc(t.lead), crumbs: [{ href: '/veranstaltungen/', label: 'Veranstaltungen' }, { href: '/veranstaltungen/#talkmobility', label: 'talkMobility' }, { label: `Ausgabe ${t.no}` }] }).replace('<section class="page-hero">', `<section class="page-hero page-hero--number" data-no="${t.no}">`)}
+<section class="section">
+  <div class="container tm-detail">
+    <div class="prose prose--article">${t.body}</div>
+    <aside class="tm-facts" aria-label="Eckdaten">
+      <dl>
+        <div><dt>Ausgabe</dt><dd>talkMobility ${t.no}</dd></div>
+        ${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
+      </dl>
+      ${t.docs?.length ? `<div class="tm-facts__docs"><p class="tm-facts__label">Downloads</p>${t.docs.map((d) => `<a class="link-arrow" href="/assets/docs/talkmobility/${d.file}" download>${icon('download')} ${esc(d.label)} <span>PDF, ${fmtSize(docSizes[d.file])}</span></a>`).join('')}</div>` : ''}
+      ${t.related ? `<a class="btn btn--ghost btn--sm" href="${t.related}">Ausführlicher Bericht ${icon('arrow')}</a>` : ''}
+    </aside>
+  </div>
+</section>
+${gallery.length ? `
+<section class="section section--tint" aria-labelledby="gal-title">
+  <div class="container">
+    <div class="section-head section-head--row"><div><p class="eyebrow">Impressionen</p><h2 class="section-title" id="gal-title">Fotos vom Abend</h2></div><p class="tm-gallery__count">${gallery.length} ${gallery.length === 1 ? 'Foto' : 'Fotos'}</p></div>
+    <ul class="tm-gallery" data-gallery>
+      ${gallery.map((k) => `<li><a href="/assets/img/${tmImg(t, k)}-1600.webp" data-lightbox aria-label="Foto ${k} von ${gallery.length} vergrößern"><img src="/assets/img/${tmImg(t, k)}-800.webp" alt="" loading="lazy" decoding="async" width="800" height="533"></a></li>`).join('')}
+    </ul>
+  </div>
+</section>
+<dialog class="lightbox" data-lightbox-dialog aria-label="Fotoansicht">
+  <img alt="" data-lightbox-img>
+  <button type="button" class="lightbox__btn lightbox__close" data-lightbox-close aria-label="Schließen">${icon('close')}</button>
+  <button type="button" class="lightbox__btn lightbox__prev" data-lightbox-prev aria-label="Vorheriges Foto">${icon('arrow')}</button>
+  <button type="button" class="lightbox__btn lightbox__next" data-lightbox-next aria-label="Nächstes Foto">${icon('arrow')}</button>
+  <p class="lightbox__count" data-lightbox-count></p>
+</dialog>` : ''}
+<section class="section">
+  <div class="container">
+    <nav class="article-nav article-nav--tm" aria-label="Weitere Ausgaben">
+      ${older ? `<a class="article-nav__prev" href="${tmUrl(older)}"><span>tM ${older.no} · Vorherige Ausgabe</span>${esc(older.title)}</a>` : '<span></span>'}
+      ${newer ? `<a class="article-nav__next" href="${tmUrl(newer)}"><span>tM ${newer.no} · Nächste Ausgabe</span>${esc(newer.title)}</a>` : '<span></span>'}
+    </nav>
+    <p class="center" style="margin-top:2rem"><a class="btn btn--ghost" href="/veranstaltungen/#talkmobility">Alle ${talkMobility.length} Ausgaben</a></p>
+  </div>
+</section>`;
+  return layout({
+    path: tmUrl(t),
+    title: `talkMobility ${t.no}: ${t.title}`,
+    description: t.lead,
+    image: t.cover ? `/assets/img/${tmImg(t, t.cover)}-1600.webp` : undefined,
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Event', name: `ATTC talkMobility ${t.no}: ${t.title}`, description: t.lead, eventStatus: 'https://schema.org/EventScheduled', ...(t.venue ? { location: { '@type': 'Place', name: t.venue } } : {}), organizer: { '@type': 'Organization', name: 'ATTC – Austrian Traffic Telematics Cluster', url: site.url } },
+    body,
+  });
 }
 
 // ---------- Aktuelles ----------
@@ -713,7 +782,7 @@ function notFound() {
   return layout({ path: '/404.html', title: 'Seite nicht gefunden', description: 'Die angeforderte Seite wurde nicht gefunden.', body });
 }
 
-export function allPages() {
+export function allPages(docSizes = {}) {
   return [
     ['/', home()],
     ['/cluster/', cluster()],
@@ -721,6 +790,7 @@ export function allPages() {
     ['/mitglieder/', mitglieder()],
     ['/mitglied-werden/', mitgliedWerden()],
     ['/veranstaltungen/', veranstaltungen()],
+    ...talkMobility.map((t) => [tmUrl(t), tmDetail(t, docSizes)]),
     ['/aktuelles/', aktuelles()],
     ...news.map((n) => [`/aktuelles/${n.slug}/`, article(n)]),
     ['/publikationen/', publikationen()],

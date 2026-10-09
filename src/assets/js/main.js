@@ -69,6 +69,40 @@
     sync();
   }
 
+  // Fotogalerie-Lightbox (ohne JS öffnen die Links einfach das Bild)
+  const dialog = document.querySelector('[data-lightbox-dialog]');
+  if (dialog && typeof dialog.showModal === 'function') {
+    const links = [...document.querySelectorAll('[data-lightbox]')];
+    const img = dialog.querySelector('[data-lightbox-img]');
+    const count = dialog.querySelector('[data-lightbox-count]');
+    let index = 0;
+    const show = (i) => {
+      index = (i + links.length) % links.length;
+      img.src = links[index].href;
+      count.textContent = `${index + 1} / ${links.length}`;
+      // Nachbarbild vorladen, damit das Blättern sofort reagiert
+      new Image().src = links[(index + 1) % links.length].href;
+    };
+    links.forEach((a, i) => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      show(i);
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+    }));
+    dialog.addEventListener('close', () => { document.body.style.overflow = ''; links[index]?.focus(); });
+    dialog.querySelector('[data-lightbox-close]').addEventListener('click', () => dialog.close());
+    dialog.querySelector('[data-lightbox-prev]').addEventListener('click', () => show(index - 1));
+    dialog.querySelector('[data-lightbox-next]').addEventListener('click', () => show(index + 1));
+    // Klick auf den Hintergrund schließt
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+    // Pfeiltasten blättern (sofort, ohne Animation)
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(index + 1);
+      if (e.key === 'ArrowLeft') show(index - 1);
+    });
+    if (links.length < 2) dialog.querySelectorAll('[data-lightbox-prev], [data-lightbox-next], [data-lightbox-count]').forEach((el) => (el.hidden = true));
+  }
+
   // Reveal beim Scrollen
   const revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && !reduceMotion) {

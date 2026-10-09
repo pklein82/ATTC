@@ -44,6 +44,7 @@ const ICONS = {
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
   lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
 };
 export const icon = (name, cls = 'icon') =>
@@ -159,7 +160,8 @@ const themeSwitcher = () => !site.themeSwitcher ? '' : `
   </div>
 </div>`;
 
-export function layout({ path, title, description, body, image = '/assets/img/og-image.jpg', jsonLd = null, type = 'website' }) {
+export function layout({ path, title, description, body, image: imageIn, jsonLd = null, type = 'website' }) {
+  const image = imageIn || '/assets/img/og-image.jpg';
   const fullTitle = path === '/' ? `${site.name}` : `${title} · ATTC`;
   const canonical = site.url + path;
   const ld = [

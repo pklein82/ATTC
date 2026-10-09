@@ -16,6 +16,7 @@ Voraussetzung: Node.js ≥ 20. Es werden **keine** npm-Pakete benötigt.
 | Pfad | Inhalt |
 |---|---|
 | `src/data.mjs` | **Alle Inhalte**: Gremien, Mitglieder, News, Veranstaltungen, Publikationen |
+| `src/talkmobility.mjs` | Alle talkMobility-Ausgaben mit Text, Fotos und PDFs (je eine Detailseite) |
 | `src/pages.mjs` | Seitenaufbau (Start, Cluster, Gremien, Mitglieder, Mitglied werden, Veranstaltungen, Aktuelles, Publikationen, Kontakt, Impressum, Datenschutz, 404) |
 | `src/layout.mjs` | Header, Footer, Meta-Tags/SEO, wiederkehrende Bausteine, Icons |
 | `src/assets/` | CSS-Designsystem, JavaScript, selbst gehostete Schriften (Jost, Inter), Bilder (WebP), PDFs |
@@ -25,6 +26,7 @@ Voraussetzung: Node.js ≥ 20. Es werden **keine** npm-Pakete benötigt.
 ## Inhalte pflegen
 
 - **News**: neuen Eintrag oben in `news` in `src/data.mjs` ergänzen, Bild als `src/assets/img/news/<name>-800.webp` und `-1600.webp` ablegen.
+- **talkMobility**: neue Ausgabe oben in `src/talkmobility.mjs` ergänzen; Fotos als `src/assets/img/tm/tm<nr>-<k>-800.webp`/`-1600.webp` (ab 3 Fotos erscheint eine Galerie), PDFs in `src/assets/docs/talkmobility/`.
 - **Kamingespräch**: Zeile in `kamingespraeche` ergänzen – Archiv, Jahresfilter und Kennzahlen aktualisieren sich automatisch.
 - **Personen**: Einträge in `praesidium`, `vorstand`, `startmitglieder` bzw. `generalsekretariat` (Porträt 300×400 WebP in `img/people/`).
 

@@ -185,26 +185,7 @@ export const themes = [
   },
 ];
 
-export const talkMobility = [
-  { no: 18, title: 'Moderne Technologien – Fluch oder Segen für resiliente Verkehrsinfrastrukturen?' },
-  { no: 17, title: 'Künstliche Intelligenz in der Mobilität', date: '2024-05-22' },
-  { no: 16, title: 'Generation Mobil(ität) – 20 Jahre ATTC', date: '2023-05-16' },
-  { no: 15, title: 'Resiliente Mobilität bei einem Blackout' },
-  { no: 14, title: 'Mobilität in Zeiten des Klimawandels' },
-  { no: 13, title: 'Die Revolution der Mobilität – Der Mensch als Passagier der technologischen Entwicklung' },
-  { no: 12, title: 'Verkehrspolitische Weichenstellungen für die Mobilitätslösungen von morgen' },
-  { no: 11, title: 'Wie wir uns auch in Zukunft aufeinander zubewegen' },
-  { no: 10, title: 'Der Weg in die automatisierte Sackgasse?' },
-  { no: 9, title: 'In die Zukunft denken, Projekte konkret gestalten' },
-  { no: 8, title: 'Wien – Freiburg: Smart Cities im Mobilitätscheck' },
-  { no: 7, title: 'car2car-Communication – der automobile Datenaustausch' },
-  { no: 6, title: 'Mit der Sonnenkraft um die Erde' },
-  { no: 5, title: 'The Digital Human Telematic User' },
-  { no: 4, title: 'Navigationssysteme' },
-  { no: 3, title: 'Mysterium Klimawandel' },
-  { no: 2, title: 'Google Maps – Die Landkarte der Zukunft' },
-  { no: 1, title: '„Und es bewegt sich doch“ – Galileo, Realisierung einer europäischen Vision' },
-];
+export { talkMobility } from './talkmobility.mjs';
 
 // Kamingespräche: [Datum (ISO), Thema, Gastgeber]
 export const kamingespraeche = [
