@@ -63,7 +63,7 @@ const redirects = [
   ['/trendmobility/', '/publikationen/'],
   ['/positionspapier-ki-in-der-mobilitaet-2024/', '/assets/docs/positionspapier-ki-2024.pdf'],
   ...news.map((n) => [`/${n.oldSlug}/`, `/aktuelles/${n.slug}/`]),
-  ...talkMobility.map((t) => [`/veranstaltungen/talk-mobility/${t.oldSlug}/`, `/veranstaltungen/talkmobility/${t.no}/`]),
+  ...talkMobility.filter((t) => t.oldSlug).map((t) => [`/veranstaltungen/talk-mobility/${t.oldSlug}/`, `/veranstaltungen/talkmobility/${t.no}/`]),
 ];
 // Netlify / Cloudflare Pages
 await writeFile(join(OUT, '_redirects'), redirects.map(([from, to]) => `${from} ${to} 301`).join('\n') + '\n');

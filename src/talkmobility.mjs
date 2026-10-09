@@ -5,6 +5,41 @@
 
 export const talkMobility = [
   {
+    no: 19,
+    upcoming: true,
+    title: 'Gen AI: Gefahr oder Chance?',
+    when: '18. November 2026, 18:00 Uhr',
+    date: '2026-11-18T18:00:00+01:00',
+    venue: 'Wien (Ort wird bekanntgegeben)',
+    keynote: 'STACKIT / Schwarz Digits (angefragt)',
+    images: 3,
+    cover: 1,
+    imageNote: 'Illustrationen KI-generiert',
+    lead: 'Vom Chatbot zum autonomen Agenten – und wer die Infrastruktur dafür kontrolliert. Der 19. talkMobility fragt, was agentische KI und digitale Souveränität für Verkehrsbetreiber bedeuten.',
+    body: `
+<p>Beim talkMobility 17 ging es um <a href="/veranstaltungen/talkmobility/17/">„Künstliche Intelligenz in der Mobilität“</a>. Seither hat sich das Feld rasant weiterentwickelt: KI-Systeme beantworten nicht mehr nur Fragen, sie handeln als <strong>Agenten</strong> selbstständig. Für Betreiber kritischer Verkehrsinfrastruktur stellen sich damit neue Fragen – nach Haftung, Kontrolle und Abhängigkeit von außereuropäischen Plattformen.</p>
+<p>Der 19. talkMobility setzt bewusst das Muster von tM 18 („Fluch oder Segen …?“) fort und lädt zu einer kontroversen Debatte ein.</p>
+<h2>Keynote: Vom Chatbot zum Agenten</h2>
+<p>Für die Keynote ist <strong>STACKIT</strong>, die souveräne Cloud der Schwarz Gruppe, angefragt. Gemeinsam mit der Deutschen Bahn betreibt Schwarz Digits den <strong>DataHub Europe</strong> – eine Datenplattform, deren Ausrichtung auf die Mobilität als nächster Schritt geplant ist. Damit bringt STACKIT die Perspektive einer europäischen Infrastruktur für Daten und KI ein, die auch für kritische Infrastruktur und NIS2 gedacht ist.</p>
+<h2>Geplanter Ablauf</h2>
+<ul>
+<li><strong>18:00</strong> – Begrüßung durch das ATTC-Präsidium</li>
+<li><strong>18:15</strong> – Keynote „Vom Chatbot zum Agenten“</li>
+<li><strong>18:45</strong> – Podium „Gefahr oder Chance?“ mit Publikumsfragen</li>
+<li><strong>19:45</strong> – Networking &amp; Ausklang</li>
+</ul>
+<h2>Das Podium</h2>
+<p>Fünf Perspektiven sollen am Podium aufeinandertreffen: Plattform und Souveränität, ein Infrastrukturbetreiber und ein Unternehmen der Verkehrstechnik aus dem ATTC, ein Software-Partner aus dem Umfeld des Clusters sowie eine kritische Stimme aus Security- oder Ethik-Forschung. Die Besetzung wird rechtzeitig bekanntgegeben.</p>
+<h2>Leitfragen</h2>
+<ol>
+<li>Dürfen KI-Agenten in kritischer Verkehrsinfrastruktur handeln – oder nur empfehlen?</li>
+<li>Wer haftet, wenn ein Agent im Betrieb einen Fehler macht?</li>
+<li>Wie viel Abhängigkeit von US-Modellen ist für Betreiber vertretbar?</li>
+<li>Was ist das größere Risiko: KI einsetzen oder darauf verzichten?</li>
+</ol>
+<p class="note">Programm und Besetzung in Planung, Änderungen vorbehalten. Einladungen folgen an Mitglieder und Partner; Anfragen gerne an <a href="mailto:office@attc.at">office@attc.at</a>.</p>`,
+  },
+  {
     no: 18,
     images: 9,
     cover: 9,

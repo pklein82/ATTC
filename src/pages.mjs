@@ -12,7 +12,7 @@ const stats = [
   { value: site.founded, label: 'gegründet auf Initiative der ASFINAG', plain: true },
   { value: memberOrgs.length, label: 'Mitgliedsorganisationen aus Betrieb, Industrie und Forschung' },
   { value: kamingespraeche.length, label: 'Kamingespräche bei Mitgliedern und Partnern', suffix: '+' },
-  { value: talkMobility.length, label: 'Ausgaben der Vortragsreihe talkMobility' },
+  { value: talkMobility.filter((t) => !t.upcoming).length, label: 'Ausgaben der Vortragsreihe talkMobility' },
 ];
 
 // ---------- Bausteine ----------
@@ -135,8 +135,8 @@ function home() {
         <div class="format__body">
           <span class="format__tag">${icon('mic')} Vortragsreihe</span>
           <h3>talkMobility</h3>
-          <p>Renommierte nationale und internationale Expert:innen zu den großen Mobilitätsfragen – zuletzt Ausgabe ${talkMobility[0].no}: „${esc(talkMobility[0].title)}“</p>
-          <span class="link-arrow">Zum Bericht ${icon('arrow')}</span>
+          <p>Renommierte nationale und internationale Expert:innen zu den großen Mobilitätsfragen – ${talkMobility[0].upcoming ? `nächste Ausgabe am ${esc(talkMobility[0].when.split(',')[0])}` : `zuletzt Ausgabe ${talkMobility[0].no}`}: „${esc(talkMobility[0].title)}“</p>
+          <span class="link-arrow">${talkMobility[0].upcoming ? 'Zur Vorschau' : 'Zum Bericht'} ${icon('arrow')}</span>
         </div>
       </a>
       <a class="format" href="/veranstaltungen/#kamingespraeche" data-reveal>
@@ -445,7 +445,7 @@ ${pageHero({ eyebrow: 'Veranstaltungen', title: 'Wissen teilen.<br>Netzwerk erle
       <figure class="framed framed--sm" data-reveal>${picture('news/tm17', 'talkMobility 17: Künstliche Intelligenz in der Mobilität', { sizes: '(min-width: 1000px) 40vw, 100vw', w: 1600, h: 900 })}</figure>
     </div>
     <ol class="tm-list">
-      ${talkMobility.map((t) => `<li class="tm-item" data-reveal><a class="tm-item__link" href="${tmUrl(t)}"><span class="tm-item__no">tM ${t.no}</span><div><h3>${esc(t.title)}</h3><p>${[t.when, t.keynote && t.keynote.split(',')[0].replace(/\s*\([^)]*\)/g, '')].filter(Boolean).map(esc).join(' · ')}</p></div>${t.images >= 3 ? `<span class="tm-item__badge" title="Mit Fotogalerie">${icon('camera')}</span>` : ''}<span class="tm-item__arrow">${icon('arrow')}</span></a></li>`).join('')}
+      ${talkMobility.map((t) => `<li class="tm-item${t.upcoming ? ' tm-item--upcoming' : ''}" data-reveal><a class="tm-item__link" href="${tmUrl(t)}"><span class="tm-item__no">tM ${t.no}</span><div><h3>${esc(t.title)}</h3><p>${[t.when, t.keynote && t.keynote.split(',')[0].replace(/\s*\([^)]*\)/g, '')].filter(Boolean).map(esc).join(' · ')}</p></div>${t.upcoming ? '<span class="tm-item__soon">Demnächst</span>' : t.images >= 3 ? `<span class="tm-item__badge" title="Mit Fotogalerie">${icon('camera')}</span>` : ''}<span class="tm-item__arrow">${icon('arrow')}</span></a></li>`).join('')}
     </ol>
   </div>
 </section>
@@ -511,7 +511,7 @@ function tmDetail(t, docSizes) {
   const gallery = t.images >= 3 ? Array.from({ length: t.images }, (_, k) => k + 1) : [];
   const body = `
 ${t.cover
-    ? pageHero({ eyebrow: `talkMobility · Ausgabe ${t.no}`, title: esc(t.title), lead: esc(t.lead), img: tmImg(t, t.cover), crumbs: [{ href: '/veranstaltungen/', label: 'Veranstaltungen' }, { href: '/veranstaltungen/#talkmobility', label: 'talkMobility' }, { label: `Ausgabe ${t.no}` }] })
+    ? pageHero({ eyebrow: `talkMobility · Ausgabe ${t.no}${t.upcoming ? ' · Vorschau' : ''}`, title: esc(t.title), lead: esc(t.lead), img: tmImg(t, t.cover), crumbs: [{ href: '/veranstaltungen/', label: 'Veranstaltungen' }, { href: '/veranstaltungen/#talkmobility', label: 'talkMobility' }, { label: `Ausgabe ${t.no}` }] })
     : pageHero({ eyebrow: `talkMobility · Ausgabe ${t.no}`, title: esc(t.title), lead: esc(t.lead), crumbs: [{ href: '/veranstaltungen/', label: 'Veranstaltungen' }, { href: '/veranstaltungen/#talkmobility', label: 'talkMobility' }, { label: `Ausgabe ${t.no}` }] }).replace('<section class="page-hero">', `<section class="page-hero page-hero--number" data-no="${t.no}">`)}
 <section class="section">
   <div class="container tm-detail">
@@ -519,9 +519,11 @@ ${t.cover
     <aside class="tm-facts" aria-label="Eckdaten">
       <dl>
         <div><dt>Ausgabe</dt><dd>talkMobility ${t.no}</dd></div>
+        ${t.upcoming ? '<div><dt>Status</dt><dd><span class="status-dot"></span>In Planung</dd></div>' : ''}
         ${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
       </dl>
       ${t.docs?.length ? `<div class="tm-facts__docs"><p class="tm-facts__label">Downloads</p>${t.docs.map((d) => `<a class="link-arrow" href="/assets/docs/talkmobility/${d.file}" download>${icon('download')} ${esc(d.label)} <span>PDF, ${fmtSize(docSizes[d.file])}</span></a>`).join('')}</div>` : ''}
+      ${t.upcoming ? `<a class="btn btn--primary btn--sm" href="mailto:${site.email}?subject=${encodeURIComponent(`Interesse talkMobility ${t.no}: ${t.title}`)}">${icon('mail')} Interesse anmelden</a>` : ''}
       ${t.related ? `<a class="btn btn--ghost btn--sm" href="${t.related}">Ausführlicher Bericht ${icon('arrow')}</a>` : ''}
     </aside>
   </div>
@@ -529,7 +531,7 @@ ${t.cover
 ${gallery.length ? `
 <section class="section section--tint" aria-labelledby="gal-title">
   <div class="container">
-    <div class="section-head section-head--row"><div><p class="eyebrow">Impressionen</p><h2 class="section-title" id="gal-title">Fotos vom Abend</h2></div><p class="tm-gallery__count">${gallery.length} ${gallery.length === 1 ? 'Foto' : 'Fotos'}</p></div>
+    <div class="section-head section-head--row"><div><p class="eyebrow">${t.upcoming ? 'Einstimmung' : 'Impressionen'}</p><h2 class="section-title" id="gal-title">${t.upcoming ? 'Worum es geht' : 'Fotos vom Abend'}</h2></div><p class="tm-gallery__count">${t.imageNote ? esc(t.imageNote) : `${gallery.length} ${gallery.length === 1 ? 'Foto' : 'Fotos'}`}</p></div>
     <ul class="tm-gallery" data-gallery>
       ${gallery.map((k) => `<li><a href="/assets/img/${tmImg(t, k)}-1600.webp" data-lightbox aria-label="Foto ${k} von ${gallery.length} vergrößern"><img src="/assets/img/${tmImg(t, k)}-800.webp" alt="" loading="lazy" decoding="async" width="800" height="533"></a></li>`).join('')}
     </ul>
@@ -546,9 +548,9 @@ ${gallery.length ? `
   <div class="container">
     <nav class="article-nav article-nav--tm" aria-label="Weitere Ausgaben">
       ${older ? `<a class="article-nav__prev" href="${tmUrl(older)}"><span>tM ${older.no} · Vorherige Ausgabe</span>${esc(older.title)}</a>` : '<span></span>'}
-      ${newer ? `<a class="article-nav__next" href="${tmUrl(newer)}"><span>tM ${newer.no} · Nächste Ausgabe</span>${esc(newer.title)}</a>` : '<span></span>'}
+      ${newer ? `<a class="article-nav__next" href="${tmUrl(newer)}"><span>tM ${newer.no} · ${newer.upcoming ? 'Vorschau' : 'Nächste Ausgabe'}</span>${esc(newer.title)}</a>` : '<span></span>'}
     </nav>
-    <p class="center" style="margin-top:2rem"><a class="btn btn--ghost" href="/veranstaltungen/#talkmobility">Alle ${talkMobility.length} Ausgaben</a></p>
+    <p class="center" style="margin-top:2rem"><a class="btn btn--ghost" href="/veranstaltungen/#talkmobility">Alle Ausgaben</a></p>
   </div>
 </section>`;
   return layout({
@@ -556,7 +558,7 @@ ${gallery.length ? `
     title: `talkMobility ${t.no}: ${t.title}`,
     description: t.lead,
     image: t.cover ? `/assets/img/${tmImg(t, t.cover)}-1600.webp` : undefined,
-    jsonLd: { '@context': 'https://schema.org', '@type': 'Event', name: `ATTC talkMobility ${t.no}: ${t.title}`, description: t.lead, eventStatus: 'https://schema.org/EventScheduled', ...(t.venue ? { location: { '@type': 'Place', name: t.venue } } : {}), organizer: { '@type': 'Organization', name: 'ATTC – Austrian Traffic Telematics Cluster', url: site.url } },
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Event', name: `ATTC talkMobility ${t.no}: ${t.title}`, description: t.lead, eventStatus: 'https://schema.org/EventScheduled', ...(t.date ? { startDate: t.date } : {}), ...(t.venue ? { location: { '@type': 'Place', name: t.venue } } : {}), organizer: { '@type': 'Organization', name: 'ATTC – Austrian Traffic Telematics Cluster', url: site.url } },
     body,
   });
 }
