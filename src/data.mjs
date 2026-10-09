@@ -300,6 +300,31 @@ export const publications = [
 // News. `body` ist HTML (vertrauenswürdiger, redaktioneller Inhalt).
 export const news = [
   {
+    slug: 'talkmobility-19-gen-ai-gefahr-oder-chance',
+    date: '2026-10-09',
+    category: 'talkMobility',
+    title: 'Save the Date: talkMobility 19 – „Gen AI: Gefahr oder Chance?“',
+    teaser: 'Am 19. Mai 2027 geht es vom Chatbot zum autonomen Agenten: Was bedeuten agentische KI und digitale Souveränität für die Betreiber kritischer Verkehrsinfrastruktur?',
+    img: 'tm/tm19-1',
+    body: `
+<p>Der nächste talkMobility steht fest: Am <strong>Mittwoch, 19. Mai 2027, ab 18:00 Uhr</strong> lädt der ATTC zur 19. Ausgabe der Vortragsreihe nach Wien. Das Thema: <strong>„Gen AI: Gefahr oder Chance?“</strong></p>
+<h2>Warum gerade jetzt</h2>
+<p>Beim talkMobility 17 standen 2024 die Möglichkeiten künstlicher Intelligenz in der Mobilität im Mittelpunkt. Seither hat sich das Feld rasant weiterentwickelt: KI-Systeme beantworten nicht mehr nur Fragen, sie handeln als <strong>Agenten</strong> zunehmend selbstständig. Für Betreiber von Straße, Schiene und Luftraum stellen sich damit neue Fragen – nach Kontrolle, Haftung und der Abhängigkeit von außereuropäischen Plattformen.</p>
+<h2>Keynote und Podium</h2>
+<p>Für die Keynote „Vom Chatbot zum Agenten“ ist <strong>STACKIT</strong>, die souveräne Cloud der Schwarz Gruppe, angefragt. Gemeinsam mit der Deutschen Bahn betreibt Schwarz Digits mit dem DataHub Europe eine Datenplattform, deren Ausrichtung auf die Mobilität als nächster Schritt geplant ist.</p>
+<p>Im anschließenden Podium treffen fünf Perspektiven aufeinander: Plattform und Souveränität, ein Infrastrukturbetreiber und ein Unternehmen der Verkehrstechnik aus dem ATTC, ein Software-Partner aus dem Umfeld des Clusters sowie eine kritische Stimme aus Security- oder Ethik-Forschung. Die Besetzung geben wir rechtzeitig bekannt.</p>
+<h2>Vier Fragen für den Abend</h2>
+<ol>
+<li>Dürfen KI-Agenten in kritischer Verkehrsinfrastruktur handeln – oder nur empfehlen?</li>
+<li>Wer haftet, wenn ein Agent im Betrieb einen Fehler macht?</li>
+<li>Wie viel Abhängigkeit von US-Modellen ist für Betreiber vertretbar?</li>
+<li>Was ist das größere Risiko: KI einsetzen oder darauf verzichten?</li>
+</ol>
+<p>Einladungen an Mitglieder und Partner folgen. Wer schon jetzt Interesse anmelden möchte, schreibt an <a href="mailto:office@attc.at?subject=Interesse%20talkMobility%2019">office@attc.at</a>.</p>
+<p><a class="link-arrow" href="/veranstaltungen/talkmobility/19/">Programm und Details zum talkMobility 19</a></p>
+<p class="note">Programm und Besetzung in Planung, Änderungen vorbehalten. Titelbild: KI-generierte Illustration.</p>`,
+  },
+  {
     slug: 'kontron-transportation-kritische-kommunikation',
     oldSlug: 'veranstaltungen/kamingesprache/attc-informationsabend-kontron',
     kamin: '2025-06-10',

@@ -62,7 +62,7 @@ const redirects = [
   ['/veranstaltungen/weitere-events/', '/veranstaltungen/#weitere'],
   ['/trendmobility/', '/publikationen/'],
   ['/positionspapier-ki-in-der-mobilitaet-2024/', '/assets/docs/positionspapier-ki-2024.pdf'],
-  ...news.map((n) => [`/${n.oldSlug}/`, `/aktuelles/${n.slug}/`]),
+  ...news.filter((n) => n.oldSlug).map((n) => [`/${n.oldSlug}/`, `/aktuelles/${n.slug}/`]),
   ...talkMobility.filter((t) => t.oldSlug).map((t) => [`/veranstaltungen/talk-mobility/${t.oldSlug}/`, `/veranstaltungen/talkmobility/${t.no}/`]),
 ];
 // Netlify / Cloudflare Pages
