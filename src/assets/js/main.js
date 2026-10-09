@@ -37,6 +37,38 @@
   });
   window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => e.matches && setNav(false, { instant: true }));
 
+  // Modus-Wechsler für die Design-Varianten
+  const switcher = document.querySelector('[data-theme-switch]');
+  if (switcher) {
+    const buttons = [...switcher.querySelectorAll('[data-set-theme]')];
+    const metaColor = document.querySelector('meta[name="theme-color"]');
+    const sync = () => {
+      const current = root.getAttribute('data-theme') || 'technik';
+      buttons.forEach((b) => {
+        const on = b.dataset.setTheme === current;
+        b.setAttribute('aria-pressed', String(on));
+        if (on && metaColor) metaColor.content = b.dataset.themeColor;
+      });
+    };
+    const apply = (id) => {
+      if (id === 'technik') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', id);
+      sync();
+      try { localStorage.setItem('attc-design', id); } catch {}
+      // Link teilbar halten: ?design=… in der Adresszeile
+      const url = new URL(location.href);
+      if (id === 'technik') url.searchParams.delete('design'); else url.searchParams.set('design', id);
+      history.replaceState(null, '', url);
+    };
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      const id = b.dataset.setTheme;
+      if ((root.getAttribute('data-theme') || 'technik') === id) return;
+      // Überblendung nur mit View Transitions und ohne reduzierte Bewegung
+      if (document.startViewTransition && !reduceMotion) document.startViewTransition(() => apply(id));
+      else apply(id);
+    }));
+    sync();
+  }
+
   // Reveal beim Scrollen
   const revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && !reduceMotion) {

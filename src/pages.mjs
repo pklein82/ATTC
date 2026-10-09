@@ -51,7 +51,7 @@ const newsCard = (n, { large = false } = {}) => {
 const heroNetwork = () => `
 <svg class="hero-network" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" data-network>
   <defs>
-    <linearGradient id="ln" x1="0" x2="1"><stop offset="0" stop-color="#7fa6c4" stop-opacity="0"/><stop offset=".5" stop-color="#7fa6c4" stop-opacity=".55"/><stop offset="1" stop-color="#7fa6c4" stop-opacity="0"/></linearGradient>
+    <linearGradient id="ln" x1="0" x2="1"><stop offset="0" style="stop-color:var(--net)" stop-opacity="0"/><stop offset=".5" style="stop-color:var(--net)" stop-opacity=".55"/><stop offset="1" style="stop-color:var(--net)" stop-opacity="0"/></linearGradient>
   </defs>
   <g fill="none" stroke="url(#ln)" stroke-width="1.2">
     <path id="r1" d="M-40 620 C 260 560, 420 420, 720 430 S 1180 300, 1500 180"/>
@@ -59,12 +59,12 @@ const heroNetwork = () => `
     <path id="r3" d="M200 860 C 320 640, 520 380, 720 430 S 980 160, 1100 -40"/>
     <path id="r4" d="M-40 470 C 300 470, 520 260, 860 250 S 1260 360, 1500 380"/>
   </g>
-  <g fill="#f2a93b">
+  <g style="fill:var(--signal)">
     <circle r="3"><animateMotion dur="14s" repeatCount="indefinite"><mpath href="#r1"/></animateMotion></circle>
-    <circle r="2.5" fill="#cfe0ec"><animateMotion dur="18s" begin="-6s" repeatCount="indefinite"><mpath href="#r2"/></animateMotion></circle>
+    <circle r="2.5" style="fill:var(--net-dot)"><animateMotion dur="18s" begin="-6s" repeatCount="indefinite"><mpath href="#r2"/></animateMotion></circle>
     <circle r="3"><animateMotion dur="16s" begin="-3s" repeatCount="indefinite"><mpath href="#r3"/></animateMotion></circle>
-    <circle r="2.5" fill="#cfe0ec"><animateMotion dur="20s" begin="-11s" repeatCount="indefinite"><mpath href="#r4"/></animateMotion></circle>
-    <circle r="2" fill="#cfe0ec"><animateMotion dur="14s" begin="-8s" repeatCount="indefinite"><mpath href="#r1"/></animateMotion></circle>
+    <circle r="2.5" style="fill:var(--net-dot)"><animateMotion dur="20s" begin="-11s" repeatCount="indefinite"><mpath href="#r4"/></animateMotion></circle>
+    <circle r="2" style="fill:var(--net-dot)"><animateMotion dur="14s" begin="-8s" repeatCount="indefinite"><mpath href="#r1"/></animateMotion></circle>
   </g>
   <g class="hero-network__nodes">
     <circle cx="720" cy="430" r="5"/><circle cx="860" cy="250" r="4"/><circle cx="760" cy="540" r="4"/><circle cx="420" cy="455" r="3.5"/>
