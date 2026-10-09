@@ -794,34 +794,72 @@ address { font-style: normal; }
    Jede Variante setzt nur Tokens (+ wenige gezielte Overrides).
    Ohne data-theme gilt „technik“ (Standard oben).
    ========================================================================== */
-@font-face { font-family: 'Fraunces'; src: url('../fonts/fraunces-var.woff2') format('woff2'); font-weight: 300 900; font-display: swap; }
 @font-face { font-family: 'JetBrains Mono'; src: url('../fonts/jetbrains-mono-var.woff2') format('woff2'); font-weight: 300 800; font-display: swap; }
 
-/* ---------- 2 · Editorial: hell, warm, Serifen, ruhige Bewegung ---------- */
-[data-theme='editorial'] {
-  --paper: #faf7f2; --tint: #f2ede4; --card: #fffdf9;
-  --text: #2a2620; --text-2: #3d372e; --muted: #6d665b; --line: #e5ddd0;
-  --ink: #1f1b16; --ink-2: #2a251e; --ink-3: #3a332a;
-  --brand: #2f5674; --brand-600: #2f5674; --brand-700: #1f3d55; --brand-300: #8aa6bd; --brand-100: #dfe5ea; --brand-50: #eef1f2;
-  --signal: #b4532a; --signal-600: #9c4422; --on-signal: #ffffff;
-  --inv: 242, 237, 228; --inv-2: 234, 226, 213; --on-inv: 31, 27, 22; --glow: 180, 83, 42; --inv-accent: #9c4422;
-  --net: #b4532a; --net-dot: #2f5674;
-  --hero-img-opacity: 1; --hero-img-filter: grayscale(0.25) sepia(0.12);
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --r-sm: 2px; --r: 4px; --r-lg: 6px; --r-btn: 2px;
-  --shadow: 0 12px 32px -18px rgba(60, 45, 25, 0.25); --shadow-lg: 0 30px 60px -28px rgba(60, 45, 25, 0.35);
-  /* Bewegung: etwas langsamer und weicher – elegant statt knackig */
-  --ease: cubic-bezier(0.25, 0.1, 0.25, 1); --dur-fast: 200ms; --dur: 280ms; --dur-slow: 480ms;
+/* ---------- 2 · Fluid: Indigo, fließende Verläufe, weiche Karten ---------- */
+[data-theme='fluid'] {
+  --paper: #f5f7fb; --tint: #eef1f8; --card: #ffffff;
+  --text: #141a2e; --text-2: #3b4560; --muted: #636d85; --line: #e3e7f0;
+  --ink: #0f1430; --ink-2: #161c40; --ink-3: #232b5c;
+  --brand: #3b5bdb; --brand-600: #3b5bdb; --brand-700: #2f49c0; --brand-300: #9fb3ff; --brand-100: #dfe5ff; --brand-50: #eef1ff;
+  --signal: #22c3d8; --signal-600: #0e9fb3; --on-signal: #06222a;
+  --inv: 15, 20, 48; --inv-2: 35, 43, 92; --on-inv: 255, 255, 255; --glow: 59, 91, 219; --inv-accent: #9fb3ff;
+  --net: #9fb3ff; --net-dot: #22c3d8;
+  --hero-img-opacity: 0.22; --hero-img-filter: grayscale(0.7) contrast(1.05);
+  --font-display: 'Inter', system-ui, sans-serif;
+  --r-sm: 10px; --r: 16px; --r-lg: 24px; --r-btn: 999px;
+  --shadow-sm: 0 1px 2px rgba(20, 30, 80, 0.05), 0 2px 8px -2px rgba(20, 30, 80, 0.06);
+  --shadow: 0 18px 40px -16px rgba(40, 60, 160, 0.22), 0 4px 10px -4px rgba(20, 30, 80, 0.08);
+  --shadow-lg: 0 40px 80px -24px rgba(40, 60, 160, 0.35);
+  --grad: linear-gradient(115deg, #3b5bdb 0%, #22c3d8 100%);
+  /* Bewegung: weich mit der Drawer-Kurve, etwas getragener – bleibt unter 300 ms */
+  --ease: cubic-bezier(0.32, 0.72, 0, 1); --dur-fast: 180ms; --dur: 260ms; --dur-slow: 420ms;
 }
-[data-theme='editorial'] h1, [data-theme='editorial'] h2, [data-theme='editorial'] h3,
-[data-theme='editorial'] .stat__value, [data-theme='editorial'] .timeline__year { font-weight: 420; letter-spacing: -0.015em; font-variation-settings: 'opsz' 96; }
-[data-theme='editorial'] .hero__title, [data-theme='editorial'] .page-hero__title { font-weight: 360; }
-[data-theme='editorial'] .hero__title em { font-style: italic; }
-[data-theme='editorial'] .eyebrow { letter-spacing: 0.18em; }
-[data-theme='editorial'] .eyebrow::before { height: 1px; }
-[data-theme='editorial'] .hero::after, [data-theme='editorial'] .page-hero__grid { display: none; }
-[data-theme='editorial'] .site-footer { border-top: 1px solid var(--line); }
-[data-theme='editorial'] .cta-band__inner { border: 1px solid var(--line); }
+[data-theme='fluid'] h1, [data-theme='fluid'] h2, [data-theme='fluid'] h3 { font-weight: 650; letter-spacing: -0.03em; }
+[data-theme='fluid'] .hero__title, [data-theme='fluid'] .page-hero__title { font-weight: 700; letter-spacing: -0.04em; }
+/* Verlauf in der Schrift nur für Akzente: Hero-Wort und Kennzahlen */
+[data-theme='fluid'] .hero__title em, [data-theme='fluid'] .stat__value {
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+[data-theme='fluid'] .stat__suffix { color: inherit; }
+[data-theme='fluid'] .stat__value { font-weight: 700; letter-spacing: -0.04em; }
+/* Eyebrows als kleine Pillen */
+[data-theme='fluid'] .eyebrow {
+  padding: .35rem .8rem; border-radius: 999px; background: var(--brand-50); color: var(--brand-700);
+  letter-spacing: .08em; font-family: 'Inter', system-ui, sans-serif; font-size: .72rem;
+}
+[data-theme='fluid'] .eyebrow::before { width: 6px; height: 6px; border-radius: 50%; background: var(--grad); }
+[data-theme='fluid'] .eyebrow--light { background: rgba(255, 255, 255, 0.1); color: #dfe5ff; }
+/* Fließende Verläufe statt flacher Flächen */
+[data-theme='fluid'] .hero::before {
+  background:
+    radial-gradient(45% 60% at 85% 15%, rgba(34, 195, 216, 0.35), transparent 70%),
+    radial-gradient(55% 70% at 60% 100%, rgba(59, 91, 219, 0.55), transparent 70%),
+    linear-gradient(100deg, rgba(15, 20, 48, 0.97) 0%, rgba(15, 20, 48, 0.85) 50%, rgba(15, 20, 48, 0.6) 100%);
+}
+[data-theme='fluid'] .page-hero::before {
+  background:
+    radial-gradient(40% 80% at 90% 0%, rgba(34, 195, 216, 0.3), transparent 70%),
+    radial-gradient(60% 90% at 70% 100%, rgba(59, 91, 219, 0.5), transparent 70%);
+}
+[data-theme='fluid'] .page-hero--image::before {
+  background: radial-gradient(40% 80% at 90% 0%, rgba(34, 195, 216, 0.25), transparent 70%), linear-gradient(100deg, rgba(15,20,48,.95) 10%, rgba(15,20,48,.75) 55%, rgba(15,20,48,.45));
+}
+[data-theme='fluid'] .section--dark::before { background: radial-gradient(50% 80% at 0% 100%, rgba(59, 91, 219, 0.5), transparent 65%), radial-gradient(40% 60% at 100% 0%, rgba(34, 195, 216, 0.22), transparent 70%); }
+[data-theme='fluid'] .hero::after, [data-theme='fluid'] .page-hero__grid { display: none; }
+[data-theme='fluid'] .cta-band__inner { background: linear-gradient(120deg, #1b2264 0%, #2f49c0 55%, #1592a8 100%); }
+[data-theme='fluid'] .cta-band__lines { opacity: .35; }
+/* Karten: weiß, schwebend, ohne harte Kanten */
+[data-theme='fluid'] .theme-grid { gap: 1rem; background: none; border: 0; overflow: visible; }
+[data-theme='fluid'] .theme-card, [data-theme='fluid'] .section--tint .theme-card { background: var(--card); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
+[data-theme='fluid'] .theme-card::after { display: none; }
+[data-theme='fluid'] .theme-card__icon, [data-theme='fluid'] .benefit__icon { background: var(--grad); color: #fff; border-radius: 14px; }
+[data-theme='fluid'] .pillar, [data-theme='fluid'] .format, [data-theme='fluid'] .news-card__link, [data-theme='fluid'] .benefit, [data-theme='fluid'] .logo-card { border-color: transparent; box-shadow: var(--shadow-sm); }
+[data-theme='fluid'] .stats { background: var(--paper); }
+@media (hover: hover) and (pointer: fine) {
+  [data-theme='fluid'] .theme-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  [data-theme='fluid'] .theme-card { transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
+}
 
 /* ---------- 3 · Hell & institutionell: weiß, Logo-Blau, sachlich ---------- */
 [data-theme='hell'] {
@@ -913,8 +951,9 @@ body:has(.theme-switch) .site-footer { padding-bottom: 5rem; }
 /* Sanfter Überblend beim Wechsel (View Transitions) – Ease-out, kurz */
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 280ms; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
 @media print { .theme-switch { display: none !important; } }
-/* Helle Varianten: auf schmalen Screens liegt Text über dem ganzen Foto – Foto zurücknehmen */
+/* Helle Variante: auf schmalen Screens liegt Text über dem ganzen Foto – Foto zurücknehmen */
 @media (max-width: 760px) {
-  [data-theme='editorial'], [data-theme='hell'] { --hero-img-opacity: 0.35; }
+  [data-theme='hell'] { --hero-img-opacity: 0.35; }
 }
 .lightbox [hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { [data-theme='fluid'] .theme-card:hover { transform: none; } }
