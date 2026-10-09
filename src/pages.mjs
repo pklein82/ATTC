@@ -444,9 +444,13 @@ ${pageHero({ eyebrow: 'Veranstaltungen', title: 'Wissen teilen.<br>Netzwerk erle
       ${sectionHead({ eyebrow: 'Vortragsreihe', title: 'talkMobility', id: 'tm-title', text: 'Ein aktuelles Thema im Mittelpunkt einer breiten Öffentlichkeit – relevant für Politik, Wirtschaft, Industrie und vor allem für die mobile Bevölkerung. Dazu lädt der ATTC renommierte nationale und internationale Expert:innen ein.' })}
       <figure class="framed framed--sm" data-reveal>${picture('news/tm17', 'talkMobility 17: Künstliche Intelligenz in der Mobilität', { sizes: '(min-width: 1000px) 40vw, 100vw', w: 1600, h: 900 })}</figure>
     </div>
+    <div class="tm-col">
+    ${talkMobility.filter((t) => t.upcoming).map(tmNextCard).join('')}
+    ${talkMobility.some((t) => t.upcoming) ? '<p class="tm-list__head">Bisherige Ausgaben</p>' : ''}
     <ol class="tm-list">
-      ${talkMobility.map((t) => `<li class="tm-item${t.upcoming ? ' tm-item--upcoming' : ''}" data-reveal><a class="tm-item__link" href="${tmUrl(t)}"><span class="tm-item__no">tM ${t.no}</span><div><h3>${esc(t.title)}</h3><p>${[t.when, t.keynote && t.keynote.split(',')[0].replace(/\s*\([^)]*\)/g, '')].filter(Boolean).map(esc).join(' · ')}</p></div>${t.upcoming ? '<span class="tm-item__soon">Demnächst</span>' : t.images >= 3 ? `<span class="tm-item__badge" title="Mit Fotogalerie">${icon('camera')}</span>` : ''}<span class="tm-item__arrow">${icon('arrow')}</span></a></li>`).join('')}
+      ${talkMobility.filter((t) => !t.upcoming).map((t) => `<li class="tm-item${t.upcoming ? ' tm-item--upcoming' : ''}" data-reveal><a class="tm-item__link" href="${tmUrl(t)}"><span class="tm-item__no">tM ${t.no}</span><div><h3>${esc(t.title)}</h3><p>${[t.when, t.keynote && t.keynote.split(',')[0].replace(/\s*\([^)]*\)/g, '')].filter(Boolean).map(esc).join(' · ')}</p></div>${t.upcoming ? '<span class="tm-item__soon">Demnächst</span>' : t.images >= 3 ? `<span class="tm-item__badge" title="Mit Fotogalerie">${icon('camera')}</span>` : ''}<span class="tm-item__arrow">${icon('arrow')}</span></a></li>`).join('')}
     </ol>
+    </div>
   </div>
 </section>
 
@@ -494,6 +498,34 @@ ${ctaBand({ title: 'Gastgeber eines Kamingesprächs werden?', text: 'Mitglieder 
 
 
 // ---------- talkMobility-Detailseiten ----------
+
+const WEEKDAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+const MONTHS_LONG = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+// Karte für eine kommende Ausgabe – bewusst anders als die Archivliste, damit „zukünftig“ sofort erkennbar ist
+const tmNextCard = (t) => {
+  const [y, m, d] = t.date.slice(0, 10).split('-').map(Number);
+  const weekday = WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  const time = t.date.slice(11, 16);
+  const city = (t.venue || '').split(' (')[0];
+  return `
+<article class="tm-next" data-reveal>
+  <a class="tm-next__media" href="${tmUrl(t)}" tabindex="-1" aria-hidden="true">${picture(tmImg(t, t.cover), '', { sizes: '(min-width: 1000px) 30vw, 100vw' })}</a>
+  <div class="tm-next__body">
+    <p class="tm-next__label"><span class="status-dot"></span>Nächste Ausgabe · tM ${t.no} · In Planung</p>
+    <div class="tm-next__when">
+      <time class="tm-next__date" datetime="${t.date}"><span>${d}</span>${MONTHS_LONG[m - 1]} ${y}</time>
+      <p>${weekday}<br>${time} Uhr${city ? ` · ${esc(city)}` : ''}</p>
+    </div>
+    <h3><a href="${tmUrl(t)}">${esc(t.title)}</a></h3>
+    ${t.keynote ? `<p class="tm-next__meta">Keynote: ${esc(t.keynote)}</p>` : ''}
+    <div class="tm-next__actions">
+      <a class="btn btn--primary btn--sm" href="${tmUrl(t)}">Programm ansehen ${icon('arrow')}</a>
+      <a class="btn btn--ghost btn--sm" href="mailto:${site.email}?subject=${encodeURIComponent(`Interesse talkMobility ${t.no}: ${t.title}`)}">${icon('mail')} Interesse anmelden</a>
+    </div>
+  </div>
+</article>`;
+};
+
 const tmUrl = (t) => `/veranstaltungen/talkmobility/${t.no}/`;
 const tmImg = (t, k) => `tm/tm${t.no}-${k}`;
 const fmtSize = (bytes) => (bytes / 1048576 >= 1 ? `${(bytes / 1048576).toFixed(1).replace('.', ',')} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`);
