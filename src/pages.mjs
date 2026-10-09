@@ -96,6 +96,7 @@ function home() {
     <ul class="stats__list">
       ${stats.map((s) => `<li class="stat" data-reveal><span class="stat__value"${s.plain ? '' : ` data-count="${s.value}"`}>${s.value}${s.suffix ? `<span class="stat__suffix">${s.suffix}</span>` : ''}</span><span class="stat__label">${s.label}</span></li>`).join('')}
     </ul>
+    ${talkMobility[0].upcoming ? tmNextStrip(talkMobility[0], { variant: 'next-event--home' }) : ''}
   </div>
 </section>
 
@@ -501,6 +502,22 @@ ${ctaBand({ title: 'Gastgeber eines Kamingesprächs werden?', text: 'Mitglieder 
 
 const WEEKDAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 const MONTHS_LONG = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+// Kompakter Hinweis auf eine kommende talkMobility-Ausgabe (Startseite, News-Beitrag)
+const tmNextStrip = (t, { variant = '' } = {}) => {
+  const [y, m, d] = t.date.slice(0, 10).split('-').map(Number);
+  const weekday = WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  return `
+<a class="next-event ${variant}" href="${tmUrl(t)}" data-reveal>
+  <time class="tm-next__date" datetime="${t.date}"><span>${d}</span>${MONTHS_LONG[m - 1]} ${y}</time>
+  <span class="next-event__text">
+    <span class="next-event__label"><span class="status-dot"></span>Nächster Termin · talkMobility ${t.no}</span>
+    <span class="next-event__title">${esc(t.title)}</span>
+    <span class="next-event__meta">${weekday}, ${t.date.slice(11, 16)} Uhr · ${esc((t.venue || '').split(' (')[0])}</span>
+  </span>
+  <span class="next-event__cta">Programm ansehen ${icon('arrow')}</span>
+</a>`;
+};
+
 // Karte für eine kommende Ausgabe – bewusst anders als die Archivliste, damit „zukünftig“ sofort erkennbar ist
 const tmNextCard = (t) => {
   const [y, m, d] = t.date.slice(0, 10).split('-').map(Number);
@@ -556,7 +573,7 @@ ${t.cover
       </dl>
       ${t.docs?.length ? `<div class="tm-facts__docs"><p class="tm-facts__label">Downloads</p>${t.docs.map((d) => `<a class="link-arrow" href="/assets/docs/talkmobility/${d.file}" download>${icon('download')} ${esc(d.label)} <span>PDF, ${fmtSize(docSizes[d.file])}</span></a>`).join('')}</div>` : ''}
       ${t.upcoming ? `<a class="btn btn--primary btn--sm" href="mailto:${site.email}?subject=${encodeURIComponent(`Interesse talkMobility ${t.no}: ${t.title}`)}">${icon('mail')} Interesse anmelden</a>` : ''}
-      ${t.related ? `<a class="btn btn--ghost btn--sm" href="${t.related}">Ausführlicher Bericht ${icon('arrow')}</a>` : ''}
+      ${t.related ? `<a class="btn btn--ghost btn--sm" href="${t.related}">${t.upcoming ? 'Zur Ankündigung' : 'Ausführlicher Bericht'} ${icon('arrow')}</a>` : ''}
     </aside>
   </div>
 </section>
@@ -627,7 +644,13 @@ function article(n) {
     <div class="container article-media">${picture(n.img, '', { eager: true, sizes: '(min-width: 1200px) 1100px, 100vw' })}</div>
   </header>
   <div class="container container--narrow">
-    <div class="prose prose--article">${n.body}</div>
+    <div class="prose prose--article">${(() => {
+      const t = n.tm && talkMobility.find((x) => x.no === n.tm);
+      if (!t) return n.body;
+      const at = n.body.indexOf('<h2>');
+      const box = `<div class="not-prose">${tmNextStrip(t, { variant: 'next-event--article' })}</div>`;
+      return at > -1 ? n.body.slice(0, at) + box + n.body.slice(at) : n.body + box;
+    })()}</div>
     ${n.video ? `<p><a class="btn btn--primary" href="${n.video}" target="_blank" rel="noopener">${icon('play')} Video auf YouTube ansehen</a></p>` : ''}
     ${n.gallery ? `<div class="gallery">${n.gallery.map((g) => `<figure>${picture(g, '', { sizes: '(min-width: 800px) 33vw, 100vw' })}</figure>`).join('')}</div>` : ''}
     <nav class="article-nav" aria-label="Weitere Beiträge">

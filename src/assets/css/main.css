@@ -678,6 +678,33 @@ address { font-style: normal; }
 }
 @media (prefers-reduced-motion: reduce) { .tm-next__media img { transform: none !important; } }
 
+/* ---------- „Nächster Termin“-Leiste ---------- */
+.next-event {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.25rem;
+  padding: 1rem 1.25rem; border-radius: var(--r-lg); background: var(--card); border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm); text-decoration: none; color: inherit; position: relative; overflow: hidden;
+  transition: box-shadow var(--dur) var(--ease), border-color var(--dur) ease, transform var(--dur-press) var(--ease);
+}
+.next-event::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--signal); }
+.next-event:active { transform: scale(0.99); }
+.next-event__text { display: grid; gap: .2rem; min-width: 0; }
+.next-event__label { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--signal-600); }
+.next-event__title { font-family: var(--font-display); font-size: var(--step-1); font-weight: 600; color: var(--ink); line-height: 1.25; }
+.next-event__meta { font-size: .88rem; color: var(--muted); }
+.next-event__cta { display: inline-flex; align-items: center; gap: .45rem; font-weight: 600; font-size: .9rem; color: var(--brand-600); white-space: nowrap; }
+.next-event__cta .icon { transition: transform var(--dur) var(--ease); }
+.next-event--home { margin: 0 0 clamp(1.5rem, 1rem + 1.5vw, 2.5rem); }
+.next-event--article { margin: 2rem 0; }
+.prose .not-prose a.next-event { color: inherit; }
+@media (hover: hover) and (pointer: fine) {
+  .next-event:hover { box-shadow: var(--shadow); border-color: transparent; }
+  .next-event:hover .next-event__cta .icon { transform: translateX(3px); }
+}
+@media (max-width: 640px) {
+  .next-event { grid-template-columns: auto 1fr; gap: 1rem; }
+  .next-event__cta { grid-column: 1 / -1; }
+}
+
 /* ---------- talkMobility-Detail ---------- */
 .page-hero--number::after {
   content: 'tM ' attr(data-no); position: absolute; right: var(--gutter); bottom: -0.12em; z-index: -1; pointer-events: none;

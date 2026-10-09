@@ -301,6 +301,7 @@ export const publications = [
 export const news = [
   {
     slug: 'talkmobility-19-gen-ai-gefahr-oder-chance',
+    tm: 19,
     date: '2026-10-09',
     category: 'talkMobility',
     title: 'Save the Date: talkMobility 19 – „Gen AI: Gefahr oder Chance?“',
@@ -321,7 +322,6 @@ export const news = [
 <li>Was ist das größere Risiko: KI einsetzen oder darauf verzichten?</li>
 </ol>
 <p>Einladungen an Mitglieder und Partner folgen. Wer schon jetzt Interesse anmelden möchte, schreibt an <a href="mailto:office@attc.at?subject=Interesse%20talkMobility%2019">office@attc.at</a>.</p>
-<p><a class="link-arrow" href="/veranstaltungen/talkmobility/19/">Programm und Details zum talkMobility 19</a></p>
 <p class="note">Programm und Besetzung in Planung, Änderungen vorbehalten. Titelbild: KI-generierte Illustration.</p>`,
   },
   {

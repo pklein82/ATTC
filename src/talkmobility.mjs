@@ -7,6 +7,7 @@ export const talkMobility = [
   {
     no: 19,
     upcoming: true,
+    related: '/aktuelles/talkmobility-19-gen-ai-gefahr-oder-chance/',
     title: 'Gen AI: Gefahr oder Chance?',
     when: '19. Mai 2027, 18:00 Uhr',
     date: '2027-05-19T18:00:00+02:00',
